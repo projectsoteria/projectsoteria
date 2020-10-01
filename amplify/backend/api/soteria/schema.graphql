@@ -1,0 +1,28 @@
+type Article @model {
+  id: ID!
+  title: String!
+  text: String!
+  author: String
+  likes: Int!
+  comments: [Comment] @connection(keyName: "byArticle", fields: ["id"])
+}
+
+type Post @model {
+  id: ID!
+  title: String!
+  text: String!
+  image: AWSURL
+  likes: Int!
+  comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
+}
+
+type Comment
+  @model
+  @key(name: "byPost", fields: ["postID"])
+  @key(name: "byArticle", fields: ["articleID"]) {
+  id: ID!
+  postID: ID
+  articleID: ID
+  text: String!
+  likes: Int!
+}

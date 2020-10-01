@@ -1,0 +1,11 @@
+{
+    "AppSyncApiName": "soteria",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authsoteria03e8eb81",
+            "Outputs.UserPoolId"
+        ]
+    }
+}
