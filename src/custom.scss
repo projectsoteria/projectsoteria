@@ -1,0 +1,34 @@
+// override the original
+
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&display=swap");
+
+$body-bg: #e8e1ef;
+$font-family-base: "Josefin Sans", sans-serif;
+$jumbotron-bg: #c4f4c7;
+
+$theme-colors: (
+  "primary": #c4f4c7,
+  "secondary": #000000,
+  "success": #fee9e1,
+  "info": #d9fff8,
+);
+.btn-circle {
+  &.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    border-radius: 35px;
+    font-size: 24px;
+    line-height: 1.33;
+  }
+
+  width: 30px;
+  height: 30px;
+  padding: 6px 0px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.42857;
+}
+// install bootsrtap
+@import "bootstrap/scss/bootstrap";
