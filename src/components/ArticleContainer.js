@@ -1,19 +1,21 @@
-import React,{useState} from "react";
+import React from "react";
 import Article from "./Article";
 import CardColumns from "react-bootstrap/CardColumns";
 
-export default function ({articleData})
-{
+export default function ({ articleData }) {
   const articles = articleData.map((article) => {
     return (
       <Article
-      author={article.author}
-      date={article.date}
-      text={article.text}
-      img={article.imgUrl}
-      key={article.author + article.text}
-      > </Article>
-    )
+        title={article.title}
+        author={article.author}
+        date={article.date}
+        text={article.text}
+        img={article.imgUrl}
+        key={article.id}
+      >
+        {" "}
+      </Article>
+    );
   });
   return (
     <div>

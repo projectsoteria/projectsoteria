@@ -1,27 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
-import { Form, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-export default function ({ title, user, onSelect }) {
-  let content = undefined;
-  console.log(user);
-  if (user === undefined) {
-    ///content is button that says sign in
-    content = (
-      <Form inline>
-        <Button variant="primary">Sign In</Button>
-      </Form>
-    );
-  } else {
-    ///text says signed in user is username
-    content = (
-      <Navbar.Text>
-        Signed in as: <a href="#login">{user}</a>
-      </Navbar.Text>
-    );
-  }
+import { Form, FormControl } from "react-bootstrap";
+import UserContext from "./UserContext";
+export default function ({ title, onSelect }) {
+  const user = useContext(UserContext);
+  const content = (
+    <Navbar.Text>
+      Signed in as: <a href="#login">{user.username}</a>
+    </Navbar.Text>
+  );
+
   return (
     <Navbar expand="lg" fixed="top" bg="info">
       <Navbar.Brand href="/home">{title}</Navbar.Brand>

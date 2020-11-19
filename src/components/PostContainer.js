@@ -3,10 +3,11 @@ import PlusButton from "./PlusButton";
 import Post from "./Post";
 import CardColumns from "react-bootstrap/CardColumns";
 
-export default function ({ postData }) {
+export default function ({ postData, onCreatePost }) {
   const posts = postData.map((post) => {
     return (
       <Post
+        title={post.title}
         author={post.author}
         date={post.date}
         text={post.text}
@@ -19,7 +20,7 @@ export default function ({ postData }) {
     <div>
       <p>Post</p>
       <CardColumns>{posts}</CardColumns>
-      <PlusButton></PlusButton>
+      <PlusButton onCreatePost={onCreatePost}></PlusButton>
     </div>
   );
 }
