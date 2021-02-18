@@ -1,19 +1,23 @@
-import React, { useState, useEffect } from "react";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import About from "./components/About";
-import Home from "./components/Home";
-import Footer from "./components/Footer";
-import PostContainer from "./components/PostContainer";
-import ArticleContainer from "./components/ArticleContainer";
-import Navbar from "./components/Navbar";
-import Amplify, { Auth } from "aws-amplify";
-import { withAuthenticator } from "@aws-amplify/ui-react";
-import { API, graphqlOperation } from "aws-amplify";
 import * as queries from "./graphql/queries";
-import UserContextProvider from "./components/UserContextProvider";
 
+import { API, graphqlOperation } from "aws-amplify";
+import Amplify, { Auth } from "aws-amplify";
+import React, { useEffect, useState } from "react";
+
+import About from "./components/About";
+import ArticleContainer from "./components/ArticleContainer";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Footer from "./components/Footer";
+import Home from "./components/Home";
+import Navbar from "./components/Navbar";
+import PostContainer from "./components/PostContainer";
+import Row from "react-bootstrap/Row";
+import UserContextProvider from "./components/UserContextProvider";
+import UserPage from "./components/UserPage.js";
+import { withAuthenticator } from "@aws-amplify/ui-react";
+
+// TODO finish this
 function App() {
   useEffect(() => {
     API.graphql(
@@ -58,6 +62,12 @@ function App() {
               image
               likes
               comments {
+                items {
+                  id
+                  postID
+                  articleID
+                  text
+                }
                 nextToken
               }
               createdAt
@@ -85,6 +95,8 @@ function App() {
     page = <About></About>;
   } else if (eventKey === "Articles") {
     page = <ArticleContainer articleData={articles}></ArticleContainer>;
+  } else if (eventKey === "User") {
+    page = <UserPage></UserPage>;
   } else if (eventKey === "Posts") {
     page = (
       <PostContainer

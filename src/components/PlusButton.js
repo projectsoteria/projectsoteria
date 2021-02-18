@@ -1,7 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
+
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
 
 export default function ({ postData, onCreatePost }) {
   const [show, setShow] = useState(false);
