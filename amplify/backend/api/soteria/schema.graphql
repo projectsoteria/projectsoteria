@@ -3,6 +3,7 @@ type Article
   @auth(
     rules: [
       { allow: groups, groups: ["Admin"] }
+      {allow: owner}
       { allow: private, operations: [read] }
     ]
   ) {
@@ -11,11 +12,12 @@ type Article
   text: String!
   author: String
   likes: Int!
-  comments: [Comment] @connection(keyName: "byArticle", fields: ["id"])
+  #comments: [Comment] @connection(keyName: "byArticle", fields: ["id"])
 }
 
 type Post
   @model
+  @key(name: "byUser", fields: ["userID"])
   @auth(
     rules: [
       { allow: groups, groups: ["Admin"] }
@@ -23,28 +25,44 @@ type Post
       { allow: private, operations: [read] }
     ]
   ) {
+  userID: ID
   id: ID!
   title: String!
   text: String!
   image: AWSURL
-  likes: Int!
+  #articles: [Article] @connection(keyName: "byPost", fields: ["id"])
   comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
 }
 
 type Comment
   @model
+  @key(name: "byPost", fields: ["postID"])
   @auth(
     rules: [
       { allow: groups, groups: ["Admin"] }
       { allow: owner }
       { allow: private, operations: [read] }
     ]
-  )
-  @key(name: "byPost", fields: ["postID"])
-  @key(name: "byArticle", fields: ["articleID"]) {
-  id: ID!
+  ) {
   postID: ID
-  articleID: ID
+  id: ID!
+  author: User!
   text: String!
-  likes: Int!
 }
+
+type User 
+  @model
+  @auth(
+    rules: [
+      { allow: groups, groups: ["Admin"] },
+      { allow: owner },
+      { allow: private, operations: [read] } 
+    ]
+  ) {
+  id: ID!
+  username: String!
+  firstname: String
+  lastname: String
+  birthday: AWSDate!
+  posts: [Post] @connection(keyName: "byUser", fields: ["id"])
+  }
