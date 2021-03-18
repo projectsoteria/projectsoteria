@@ -9,18 +9,6 @@ export const onCreateArticle = /* GraphQL */ `
       text
       author
       likes
-      comments {
-        items {
-          id
-          postID
-          articleID
-          text
-          likes
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       createdAt
       updatedAt
     }
@@ -34,18 +22,6 @@ export const onUpdateArticle = /* GraphQL */ `
       text
       author
       likes
-      comments {
-        items {
-          id
-          postID
-          articleID
-          text
-          likes
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       createdAt
       updatedAt
     }
@@ -59,18 +35,6 @@ export const onDeleteArticle = /* GraphQL */ `
       text
       author
       likes
-      comments {
-        items {
-          id
-          postID
-          articleID
-          text
-          likes
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       createdAt
       updatedAt
     }
@@ -79,18 +43,16 @@ export const onDeleteArticle = /* GraphQL */ `
 export const onCreatePost = /* GraphQL */ `
   subscription OnCreatePost {
     onCreatePost {
+      userID
       id
       title
       text
       image
-      likes
       comments {
         items {
-          id
           postID
-          articleID
+          id
           text
-          likes
           createdAt
           updatedAt
         }
@@ -104,18 +66,16 @@ export const onCreatePost = /* GraphQL */ `
 export const onUpdatePost = /* GraphQL */ `
   subscription OnUpdatePost {
     onUpdatePost {
+      userID
       id
       title
       text
       image
-      likes
       comments {
         items {
-          id
           postID
-          articleID
+          id
           text
-          likes
           createdAt
           updatedAt
         }
@@ -129,18 +89,16 @@ export const onUpdatePost = /* GraphQL */ `
 export const onDeletePost = /* GraphQL */ `
   subscription OnDeletePost {
     onDeletePost {
+      userID
       id
       title
       text
       image
-      likes
       comments {
         items {
-          id
           postID
-          articleID
+          id
           text
-          likes
           createdAt
           updatedAt
         }
@@ -154,11 +112,21 @@ export const onDeletePost = /* GraphQL */ `
 export const onCreateComment = /* GraphQL */ `
   subscription OnCreateComment {
     onCreateComment {
-      id
       postID
-      articleID
+      id
+      author {
+        id
+        username
+        firstname
+        lastname
+        birthday
+        posts {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       text
-      likes
       createdAt
       updatedAt
     }
@@ -167,11 +135,21 @@ export const onCreateComment = /* GraphQL */ `
 export const onUpdateComment = /* GraphQL */ `
   subscription OnUpdateComment {
     onUpdateComment {
-      id
       postID
-      articleID
+      id
+      author {
+        id
+        username
+        firstname
+        lastname
+        birthday
+        posts {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       text
-      likes
       createdAt
       updatedAt
     }
@@ -180,11 +158,96 @@ export const onUpdateComment = /* GraphQL */ `
 export const onDeleteComment = /* GraphQL */ `
   subscription OnDeleteComment {
     onDeleteComment {
-      id
       postID
-      articleID
+      id
+      author {
+        id
+        username
+        firstname
+        lastname
+        birthday
+        posts {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       text
-      likes
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateUser = /* GraphQL */ `
+  subscription OnCreateUser {
+    onCreateUser {
+      id
+      username
+      firstname
+      lastname
+      birthday
+      posts {
+        items {
+          userID
+          id
+          title
+          text
+          image
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateUser = /* GraphQL */ `
+  subscription OnUpdateUser {
+    onUpdateUser {
+      id
+      username
+      firstname
+      lastname
+      birthday
+      posts {
+        items {
+          userID
+          id
+          title
+          text
+          image
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteUser = /* GraphQL */ `
+  subscription OnDeleteUser {
+    onDeleteUser {
+      id
+      username
+      firstname
+      lastname
+      birthday
+      posts {
+        items {
+          userID
+          id
+          title
+          text
+          image
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }

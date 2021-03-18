@@ -12,18 +12,6 @@ export const createArticle = /* GraphQL */ `
       text
       author
       likes
-      comments {
-        items {
-          id
-          postID
-          articleID
-          text
-          likes
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       createdAt
       updatedAt
     }
@@ -40,18 +28,6 @@ export const updateArticle = /* GraphQL */ `
       text
       author
       likes
-      comments {
-        items {
-          id
-          postID
-          articleID
-          text
-          likes
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       createdAt
       updatedAt
     }
@@ -68,18 +44,6 @@ export const deleteArticle = /* GraphQL */ `
       text
       author
       likes
-      comments {
-        items {
-          id
-          postID
-          articleID
-          text
-          likes
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       createdAt
       updatedAt
     }
@@ -91,18 +55,16 @@ export const createPost = /* GraphQL */ `
     $condition: ModelPostConditionInput
   ) {
     createPost(input: $input, condition: $condition) {
+      userID
       id
       title
       text
       image
-      likes
       comments {
         items {
-          id
           postID
-          articleID
+          id
           text
-          likes
           createdAt
           updatedAt
         }
@@ -119,18 +81,16 @@ export const updatePost = /* GraphQL */ `
     $condition: ModelPostConditionInput
   ) {
     updatePost(input: $input, condition: $condition) {
+      userID
       id
       title
       text
       image
-      likes
       comments {
         items {
-          id
           postID
-          articleID
+          id
           text
-          likes
           createdAt
           updatedAt
         }
@@ -147,18 +107,16 @@ export const deletePost = /* GraphQL */ `
     $condition: ModelPostConditionInput
   ) {
     deletePost(input: $input, condition: $condition) {
+      userID
       id
       title
       text
       image
-      likes
       comments {
         items {
-          id
           postID
-          articleID
+          id
           text
-          likes
           createdAt
           updatedAt
         }
@@ -175,11 +133,21 @@ export const createComment = /* GraphQL */ `
     $condition: ModelCommentConditionInput
   ) {
     createComment(input: $input, condition: $condition) {
-      id
       postID
-      articleID
+      id
+      author {
+        id
+        username
+        firstname
+        lastname
+        birthday
+        posts {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       text
-      likes
       createdAt
       updatedAt
     }
@@ -191,11 +159,21 @@ export const updateComment = /* GraphQL */ `
     $condition: ModelCommentConditionInput
   ) {
     updateComment(input: $input, condition: $condition) {
-      id
       postID
-      articleID
+      id
+      author {
+        id
+        username
+        firstname
+        lastname
+        birthday
+        posts {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       text
-      likes
       createdAt
       updatedAt
     }
@@ -207,11 +185,105 @@ export const deleteComment = /* GraphQL */ `
     $condition: ModelCommentConditionInput
   ) {
     deleteComment(input: $input, condition: $condition) {
-      id
       postID
-      articleID
+      id
+      author {
+        id
+        username
+        firstname
+        lastname
+        birthday
+        posts {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       text
-      likes
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createUser = /* GraphQL */ `
+  mutation CreateUser(
+    $input: CreateUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    createUser(input: $input, condition: $condition) {
+      id
+      username
+      firstname
+      lastname
+      birthday
+      posts {
+        items {
+          userID
+          id
+          title
+          text
+          image
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateUser = /* GraphQL */ `
+  mutation UpdateUser(
+    $input: UpdateUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    updateUser(input: $input, condition: $condition) {
+      id
+      username
+      firstname
+      lastname
+      birthday
+      posts {
+        items {
+          userID
+          id
+          title
+          text
+          image
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteUser = /* GraphQL */ `
+  mutation DeleteUser(
+    $input: DeleteUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    deleteUser(input: $input, condition: $condition) {
+      id
+      username
+      firstname
+      lastname
+      birthday
+      posts {
+        items {
+          userID
+          id
+          title
+          text
+          image
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
