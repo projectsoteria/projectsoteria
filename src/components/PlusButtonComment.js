@@ -21,7 +21,7 @@ export default function ({ onCreateComment, onClick }) {
           onClick()
         }}
       >
-        <i class="fa fa-plus"></i>+
+        <i className="fa fa-plus"></i>+
       </Button>
     </>
   );

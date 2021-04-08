@@ -3,6 +3,7 @@ import * as queries from "./graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import Amplify, { Auth } from "aws-amplify";
 import React, { useEffect, useState } from "react";
+import {listArticles, listPosts} from "./graphql/queries";
 
 import About from "./components/About";
 import ArticleContainer from "./components/ArticleContainer";
@@ -21,62 +22,39 @@ import { withAuthenticator } from "@aws-amplify/ui-react";
 function App() {
   useEffect(() => {
     API.graphql(
-      graphqlOperation(/* GraphQL */ `
-        query ListArticles(
-          $filter: ModelArticleFilterInput
-          $limit: Int
-          $nextToken: String
-        ) {
-          listArticles(filter: $filter, limit: $limit, nextToken: $nextToken) {
-            items {
-              id
-              title
-              text
-              author
-              likes
-              comments {
-                nextToken
-              }
-              createdAt
-            }
-            nextToken
-          }
-        }
-      `)
+      graphqlOperation(listArticles)
     ).then((response) => {
       console.log(response);
       setArticles(response.data.listArticles.items);
     });
     API.graphql(
-      graphqlOperation(/* GraphQL */ `
-        query ListPosts(
-          $filter: ModelPostFilterInput
-          $limit: Int
-          $nextToken: String
-        ) {
-          listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
-            items {
-              id
-              title
-              text
-              image
-              likes
-              comments {
-                items {
-                  id
-                  postID
-                  articleID
-                  text
-                }
-                nextToken
+      graphqlOperation(`
+      query ListPosts(
+        $filter: ModelPostFilterInput
+        $limit: Int
+        $nextToken: String
+      ) {
+        listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+          items {
+            userID
+            id
+            title
+            text
+            image
+            comments {
+              nextToken
+              items {
+                id
+                text
               }
-              createdAt
-              updatedAt
             }
-            nextToken
+            createdAt
+            updatedAt
           }
+          nextToken
         }
-      `)
+      }
+    `)
     ).then((response) => {
       console.log(response);
       setPosts(response.data.listPosts.items);

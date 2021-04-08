@@ -9,18 +9,6 @@ export const getArticle = /* GraphQL */ `
       text
       author
       likes
-      comments {
-        items {
-          id
-          postID
-          articleID
-          text
-          likes
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       createdAt
       updatedAt
     }
@@ -39,9 +27,6 @@ export const listArticles = /* GraphQL */ `
         text
         author
         likes
-        comments {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -52,18 +37,16 @@ export const listArticles = /* GraphQL */ `
 export const getPost = /* GraphQL */ `
   query GetPost($id: ID!) {
     getPost(id: $id) {
+      userID
       id
       title
       text
       image
-      likes
       comments {
         items {
-          id
           postID
-          articleID
+          id
           text
-          likes
           createdAt
           updatedAt
         }
@@ -82,11 +65,11 @@ export const listPosts = /* GraphQL */ `
   ) {
     listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
+        userID
         id
         title
         text
         image
-        likes
         comments {
           nextToken
         }
@@ -100,11 +83,21 @@ export const listPosts = /* GraphQL */ `
 export const getComment = /* GraphQL */ `
   query GetComment($id: ID!) {
     getComment(id: $id) {
-      id
       postID
-      articleID
+      id
+      author {
+        id
+        username
+        firstname
+        lastname
+        birthday
+        posts {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       text
-      likes
       createdAt
       updatedAt
     }
@@ -118,11 +111,66 @@ export const listComments = /* GraphQL */ `
   ) {
     listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        id
         postID
-        articleID
+        id
+        author {
+          id
+          username
+          firstname
+          lastname
+          birthday
+          createdAt
+          updatedAt
+        }
         text
-        likes
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getUser = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      id
+      username
+      firstname
+      lastname
+      birthday
+      posts {
+        items {
+          userID
+          id
+          title
+          text
+          image
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listUsers = /* GraphQL */ `
+  query ListUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        username
+        firstname
+        lastname
+        birthday
+        posts {
+          nextToken
+        }
         createdAt
         updatedAt
       }

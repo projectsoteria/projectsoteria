@@ -21,7 +21,7 @@ export default function ({ postData, onCreatePost }) {
         size="lg"
         onClick={handleShow}
       >
-        <i class="fa fa-plus"></i>+
+        <i className="fa fa-plus"></i>+
       </Button>
 
       <Modal
