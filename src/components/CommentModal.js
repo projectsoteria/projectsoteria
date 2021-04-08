@@ -1,9 +1,11 @@
+import React, { useRef, useState } from "react";
+
 import Button from 'react-bootstrap/Button';
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import  React from "react";
 
-export default function ({CommentModal, show, onExit, onSubmit}) {
+export default function ({show, onExit, onSubmit}) {
+  const [commentText, setCommentText] = useState("")
     return(
         <Modal
         backdrop="static"
@@ -20,6 +22,8 @@ export default function ({CommentModal, show, onExit, onSubmit}) {
               <Form.Control
                 type="post"
                 placeholder="Enter comment"
+                value = {commentText}
+                onChange = {(e) => setCommentText(e.target.value)}
               />
             </Form.Group>
             <Form.Group controlId="formBasicCheckbox">
@@ -35,7 +39,7 @@ export default function ({CommentModal, show, onExit, onSubmit}) {
           <Button
             variant="primary"
             type="submit"
-            onClick={onSubmit}
+            onClick= {() => onSubmit(commentText)}
           >
             Submit
           </Button> 

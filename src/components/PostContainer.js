@@ -11,13 +11,14 @@ export default function ({ postData, onCreatePost }) {
   const posts = postData.map((post) => {
     return (
       <Post
+        id={post.id}
         title={post.title}
-        author={post.author}
-        date={post.date}
+        author={"shreya"}
+        date={post.createdAt}
         text={post.text}
         comments={post.comments}
-        img={post.img}
-        key={post.author + post.text}
+        img={post.image}
+        key={post.id}
       ></Post>
     );
   });
