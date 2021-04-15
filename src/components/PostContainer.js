@@ -24,7 +24,6 @@ export default function ({ postData, onCreatePost }) {
   });
   return (
     <div>
-      <p>Post</p>
       <CardColumns>{posts}</CardColumns>
       <PlusButton onCreatePost={onCreatePost}></PlusButton>
     </div>
