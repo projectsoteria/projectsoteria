@@ -1,6 +1,6 @@
-import React from "react";
 import Article from "./Article";
 import CardColumns from "react-bootstrap/CardColumns";
+import React from "react";
 
 export default function ({ articleData }) {
   const articles = articleData.map((article) => {
@@ -19,7 +19,7 @@ export default function ({ articleData }) {
   });
   return (
     <div>
-      <p>Article</p>
+      {/* <p>Article</p> */}
       <CardColumns>{articles}</CardColumns>
     </div>
   );

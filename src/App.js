@@ -104,7 +104,7 @@ function App() {
   return (
     <UserContextProvider>
       <Container>
-        <Row>
+        <Row className="navBar">
           <Col>
             <Navbar
               title="Project Soteria"
