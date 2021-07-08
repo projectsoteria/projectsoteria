@@ -1,8 +1,17 @@
+import React, {useState} from "react";
+
+import { API } from "aws-amplify";
 import Article from "./Article";
 import CardColumns from "react-bootstrap/CardColumns";
-import React from "react";
+import {listArticles} from "../graphql/queries";
 
-export default function ({ articleData }) {
+export default function ({}) {
+  const [articleData, setArticles] = useState([]);
+    API.graphql( {
+      query: listArticles
+    }).then((response) => {
+      setArticles(response.data.listArticles.items);
+    });
   const articles = articleData.map((article) => {
     return (
       <Article
